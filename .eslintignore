@@ -3,4 +3,5 @@ src/serviceWorker.ts
 config/
 scripts/
 Plugins/*
+*.config.*
 __mocks__/*

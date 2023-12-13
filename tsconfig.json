@@ -11,12 +11,14 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "noImplicitAny": false,
     "paths": {
-      "@/*": ["./src/*"]
+      "*": ["src/*"],
+      "tests": ["tests/*"],
+      "@components/*": ["src/components/*"]
     }
   },
   "exclude": [

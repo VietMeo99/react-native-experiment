@@ -19,8 +19,15 @@
   "plugins": ["@typescript-eslint", "react", "import", "prettier"],
   "rules": {
     "consistent-return": "off",
-    "prettier/prettier": "error",
-    "@typescript-eslint/explicit-function-return-type": "off",
+    // "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "no-inline-styles": false
+      }
+    ],
+    // "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
