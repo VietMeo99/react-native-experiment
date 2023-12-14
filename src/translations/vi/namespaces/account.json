@@ -1,0 +1,19 @@
+{
+  "account": "Tài khoản",
+  "editAccount": "Sửa tài khoản",
+  "save": "Lưu",
+  "username": "Tên đăng nhập",
+  "gender": "Giới tính",
+  "dateOfBirth": "Ngày sinh",
+  "phoneNumber": "Số điện thoại",
+  "email": "Email",
+  "position": "Chức vụ",
+  "employment": "Đơn vị",
+  "changePassword": "Đổi mật khẩu",
+  "logout": "Đăng xuất",
+  "male": "Nam",
+  "female": "Nữ",
+  "updateAvatar": "Thay ảnh đại diện",
+  "takePhoto": "Chụp ảnh",
+  "chooseFromLibrary": "Chọn từ thư viện"
+}

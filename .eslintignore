@@ -4,3 +4,5 @@ config/
 scripts/
 Plugins/*
 __mocks__/*
+*.config.ts
+*.config.js
