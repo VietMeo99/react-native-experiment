@@ -1,7 +1,6 @@
 import {Alert as RNAlert} from 'react-native';
-// import { t } from 'i18next';
+import {t} from 'i18next';
 
-const t = (m: string) => m;
 const Alert = {
   currentConfig: {
     only: true,

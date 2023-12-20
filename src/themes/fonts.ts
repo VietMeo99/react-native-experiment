@@ -67,7 +67,7 @@ export function getFonts(
   };
   return font[
     (sizeToFontText[fontWeight] || 'Regular') +
-      (fontStyleToText[fontStyle] || '')
+      (fontStyleToText[fontStyle || ''] || '')
   ];
 }
 

@@ -1,9 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig, Canceler} from 'axios';
 import CONFIG from 'config';
-// import {t} from 'i18next';
+import {t} from 'i18next';
 import {stringify} from 'query-string';
-
-const t = (m: string) => m;
 
 export const CANCEL_KEY = 'CANCEL_PROMISE';
 

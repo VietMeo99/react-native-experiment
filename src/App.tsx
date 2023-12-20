@@ -6,6 +6,11 @@ import {I18nextProvider} from 'react-i18next';
 import i18n from 'translations/i18n';
 import RootRoutes from './routes/Root.routes';
 import AuthProvider from 'contexts/AuthContext';
+import {bootstrapApp} from 'utils/bootstrapApp.util';
+
+import 'react-native-get-random-values';
+
+bootstrapApp();
 
 function App(): React.JSX.Element {
   // const isDarkMode = useColorScheme() === 'dark';

@@ -39,6 +39,7 @@
         "args": "none"
       }
     ],
+    "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -68,6 +69,7 @@
     "react/destructuring-assignment": "off",
     "react/jsx-curly-brace-presence": "off",
     "react/prefer-stateless-function": "off",
+    "react/display-name": "off",
     "camelcase": "off",
     "import/name": "off",
     "no-underscore-dangle": "off"

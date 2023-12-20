@@ -6,6 +6,7 @@ import {AppRootParams} from 'models/routes';
 import React, {FC, useState} from 'react';
 import {Colors} from 'themes/colors';
 import useAuthContext from 'hooks/useAuth';
+import Login from 'screens/auth/Login';
 
 const noop = () => <View />;
 
@@ -38,22 +39,23 @@ const AppRoutes = () => {
 
   return (
     <Stack.Navigator
+      initialRouteName={AppRouter.LOGIN}
       // initialRouteName={AppRouter.MAIN}
       screenOptions={{
+        // headerShown: false,
         headerShadowVisible: true,
         headerBackTitleVisible: false,
         headerTintColor: Colors.neutral5,
         headerTitleStyle: {fontSize: 14},
         headerTitleAlign: 'center',
-        // headerShown: false,
       }}>
       {!token ? (
         <>
-          <Stack.Screen
-            name={AppRouter.HOME}
-            component={() => <HomeScreen token={token} />}
-          />
-          {/* <Stack.Screen name={AppRouter.ACCOUNT} component={HomeScreen} /> */}
+          <Stack.Screen name={AppRouter.HOME}>
+            {props => <HomeScreen {...props} token={token} />}
+          </Stack.Screen>
+          <Stack.Screen name={AppRouter.LOGIN} component={Login} />
+          <Stack.Screen name={AppRouter.REGISTER} component={Login} />
         </>
       ) : (
         <Stack.Screen

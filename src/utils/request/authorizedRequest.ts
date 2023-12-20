@@ -7,10 +7,8 @@ import {
 
 import Alert from 'utils/alertManager';
 import Request from './request';
-// import {t} from 'i18next';
+import {t} from 'i18next';
 import {tokenManager} from 'utils/tokenManager';
-
-const t = (m: string) => m;
 
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
