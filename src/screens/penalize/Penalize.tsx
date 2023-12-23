@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 
 import {View} from 'components/ui';
-// import DecisionPenalize from 'components/penalize/DecisionPenalize';
 import {Colors} from 'themes/colors';
+import DecisionPenalize from 'components/penalize/DecisionPenalize';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 const Penalize = () => {
   return (
     <View flex={1} pt={4} style={styles.container}>
-      {/* <DecisionPenalize /> */}
+      <DecisionPenalize />
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import {AppRootParams} from 'models/route';
+import {AppRootParams} from 'models/routes';
 
 declare global {
   namespace ReactNavigation {

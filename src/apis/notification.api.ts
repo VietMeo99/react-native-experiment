@@ -38,24 +38,28 @@ export function getNotificationsApi(
   //   {params: {page: params.page, size: params.size}},
   // );
   return {
-    content: Array(10).fill({
-      id: 10,
-      createdDate: 10,
-      content: 'test',
-      notificationId: 'test',
-      decisionId: 10,
-      decisionNumber: 'test',
-      decisionType: DecisionType.DecisionApply,
-      messageType: MessageType.AddAttachment,
-      dataJson: 'test',
-      previousStatusStr: 'test',
-      currentStatusStr: 'test',
-      previousStatusDecisionStr: 'test',
-      currentStatusDecisionStr: 'test',
-      fromFullName: 'test',
-      notificationSubject: 'test',
-      isRead: 10,
-    }),
+    content: Array(10)
+      .fill({
+        id: Math.random(),
+        createdDate: 10,
+        content: 'test',
+        notificationId: 'test',
+        decisionId: 10,
+        decisionNumber: 'test',
+        decisionType: DecisionType.DecisionApply,
+        messageType: MessageType.AddAttachment,
+        dataJson: 'test',
+        previousStatusStr: 'test',
+        currentStatusStr: 'test',
+        previousStatusDecisionStr: 'test',
+        currentStatusDecisionStr: 'test',
+        fromFullName: 'test',
+        notificationSubject: 'test',
+        isRead: 10,
+      })
+      .map((item, index) => {
+        return {...item, id: Math.random() + index};
+      }),
   };
 }
 

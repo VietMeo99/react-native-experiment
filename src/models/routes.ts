@@ -1,11 +1,11 @@
 export type AppRootParams = {
-  LOGIN: object;
-  REGISTER: object;
-  REGISTER_SUCCESS: object;
-  FORGOT_PASSWORD: object;
-  PASSWORD_SENT_TO_EMAIL: object;
-  MAIN: object;
-  HOME: object;
+  LOGIN: undefined;
+  REGISTER: undefined;
+  REGISTER_SUCCESS: undefined;
+  FORGOT_PASSWORD: undefined;
+  PASSWORD_SENT_TO_EMAIL: undefined;
+  MAIN: undefined;
+  HOME: undefined;
   PENALIZE:
     | Partial<{
         createdDateStart: string;
@@ -22,8 +22,8 @@ export type AppRootParams = {
         status: string;
         postStatus: string;
       }>
-    | object;
-  PENALIZE_FILTER: object;
+    | undefined;
+  PENALIZE_FILTER: undefined;
   VIEW_PENALIZE_INFO: {id: string};
   ADMINISTRATIVE_PENALIZE_VIOLATION_DETAIL: {id: string};
   HANDLE:
@@ -45,12 +45,12 @@ export type AppRootParams = {
         postStatus: string;
         replace: boolean;
       }>
-    | object;
-  HANDLE_FILTER: object;
+    | undefined;
+  HANDLE_FILTER: undefined;
   SUGGESTION_PROFILE_DETAIL: {id: string};
   VIEW_HANDLE_INFO: {id: string};
   ADMINISTRATIVE_HANDLING_VIOLATION_DETAIL: {id: string};
-  SEARCH: object;
+  SEARCH: undefined;
   SEARCH_VIOLATION_INFO:
     | Partial<
         | {
@@ -87,8 +87,8 @@ export type AppRootParams = {
             replace: boolean;
           }
       >
-    | object;
-  VIOLATION_INFO_FILTER: object;
+    | undefined;
+  VIOLATION_INFO_FILTER: undefined;
   DOCUMENT_LIST:
     | Partial<{
         documentCode: string;
@@ -96,31 +96,31 @@ export type AppRootParams = {
         quoteContent: string;
         agencyIssued: string;
       }>
-    | object;
-  DOCUMENT_FILTER: object;
+    | undefined;
+  DOCUMENT_FILTER: undefined;
   VIEW_DOCUMENT: {id: string};
   CRIMINAL_HANDLING_VIOLATION_LIST:
     | Partial<{
         code: string;
         content: string;
       }>
-    | object;
-  CRIMINAL_HANDLING_VIOLATION_FILTER: object;
+    | undefined;
+  CRIMINAL_HANDLING_VIOLATION_FILTER: undefined;
   VIEW_CRIMINAL_HANDLING_VIOLATION: {id: string};
-  ACCOUNT: object;
-  UPDATE_ACCOUNT: object;
-  NOTIFICATIONS: object;
+  ACCOUNT: undefined;
+  UPDATE_ACCOUNT: undefined;
+  NOTIFICATIONS: undefined;
   NOTIFICATION_DETAIL: {
     id: string;
     title: string;
     content: string;
     time: number;
   };
-  CHANGE_PASSWORD: object;
-  PASSWORD_UPDATED: object;
+  CHANGE_PASSWORD: undefined;
+  PASSWORD_UPDATED: undefined;
 };
 
 export type AccountParams = {
-  ACCOUNT_INFO: object;
-  UPDATE_ACCOUNT_INFO: object;
+  ACCOUNT_INFO: undefined;
+  UPDATE_ACCOUNT_INFO: undefined;
 };

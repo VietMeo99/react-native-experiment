@@ -31,7 +31,7 @@ authorizedRequest.api.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (error && error.response && error.response.status === 401) {
-      tokenManager.doLogout();
+      // tokenManager.doLogout();
       Alert.alert(t('common:notification'), t('common:tokenExpired'));
     }
     throw error;
