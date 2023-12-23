@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  useState,
-  useRef,
-  useEffect,
-  useMemo,
-  useCallback,
-} from 'react';
+import React, {useEffect, useState, useCallback, useMemo, useRef} from 'react';
 import {
   StyleSheet,
   FlatList,
@@ -15,25 +8,27 @@ import {
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import uniqBy from 'lodash/uniqBy';
-import startOfDay from 'date-fns/startOfDay';
-import endOfDay from 'date-fns/endOfDay';
 
 import {Colors} from 'themes/colors';
-import Empty from 'components/Empty';
 import {TouchableOpacity, View} from 'components/ui';
 import {H2, Overline, SmallText, Title1} from 'components/ui/text/Typography';
 import {AppRouter} from 'constants/router';
-import {getDecisionPenalizesApi} from 'apis/penalize.api';
+import useSearch from 'hooks/useSearch';
+import useCachedParams from 'hooks/useCachedParams';
 import Alert from 'utils/alertManager';
 import {getMessageFromError} from 'utils/common/common.util';
-import useCachedParams from 'hooks/useCachedParams';
-import {ScreenHeight} from 'themes/size';
+import {getBasicDocumentsApi} from 'apis/search.api';
+import Empty from 'components/Empty';
 import BottomSheet from 'components/ui/bottom-sheet/BottomSheet';
 import IconBarsArrowUp from 'assets/images/common/ic_bars_arrow_up.svg';
 import IconArrowUpBgPrimary from 'assets/images/common/ic_arrow_up_bg_primary.svg';
-import useSearch from 'hooks/useSearch';
+import {ScreenHeight} from 'themes/size';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.neutral1,
+    position: 'relative',
+  },
   tableHead: {
     backgroundColor: Colors.primaryLight,
     height: 44,
@@ -88,24 +83,20 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  isSearch?: boolean;
-}
-
-const DecisionPenalize: FC<Props> = ({isSearch}) => {
+const DocumentList = () => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
+  const {t} = useTranslation('search');
   const {params} = useRoute<any>();
-  const {t} = useTranslation('penalize');
   const {setCachedParams} = useCachedParams();
   const {search} = useSearch();
   const [data, setData] = useState<
     Array<{
       id: number;
-      decisionNumber: string;
-      idNumber: string;
-      name: string;
-      status: string;
+      documentCode: string;
+      documentNumber: string;
+      content: string;
+      agencyIssued: string;
     }>
   >([]);
   const [sort, setSort] = useState<undefined | '1' | '9' | 'A' | 'Z'>(
@@ -114,84 +105,55 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
   const [page, setPage] = useState<number>(0);
   const [end, setEnd] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
-  const listRef = useRef<FlatList>(null);
+  const listRef = useRef();
 
   const filteredData = useMemo(() => {
     return uniqBy(data, 'id');
   }, [data]);
 
   useEffect(() => {
-    setCachedParams(AppRouter.PENALIZE, params);
-    setCachedParams(AppRouter.SEARCH_VIOLATION_INFO, params);
+    setCachedParams(AppRouter.DOCUMENT_LIST, params);
   }, [params, setCachedParams]);
 
-  const getDecisionPenalizes = useCallback(async () => {
+  const getDocumentList = useCallback(async () => {
     setLoading(page === 0);
     let sortTemp;
     switch (sort) {
       case '1':
-        sortTemp = 'decisionNumber,asc';
+        sortTemp = 'documentCode,asc';
         break;
 
       case '9':
-        sortTemp = 'decisionNumber,desc';
+        sortTemp = 'documentCode,desc';
         break;
 
       case 'A':
-        sortTemp = 'name,asc';
+        sortTemp = 'documentNumber,asc';
         break;
 
       case 'Z':
-        sortTemp = 'name,desc';
+        sortTemp = 'documentNumber,desc';
         break;
     }
     try {
-      const response = await getDecisionPenalizesApi({
-        searchType: isSearch ? 0 : 4,
+      const response = await getBasicDocumentsApi({
         page,
         size: 20,
         sort: sortTemp,
         keyword: search,
-        fromTime: params?.createdDateStart
-          ? startOfDay(params.createdDateStart).getTime()
-          : undefined,
-        toTime: params?.createdDateEnd
-          ? endOfDay(params.createdDateEnd).getTime()
-          : undefined,
-        decisionNumber: params?.decisionNumber,
-        name: params?.name,
-        idNumber: params?.idNumber,
-        type: params?.type,
-        violationPlace: params?.violationPlace,
-        violationFromTime: params?.violationTimeStart
-          ? startOfDay(params.violationTimeStart).getTime()
-          : undefined,
-        violationToTime: params?.violationTimeEnd
-          ? endOfDay(params.violationTimeEnd).getTime()
-          : undefined,
-        attachmentTypes: params?.additionalDecisionType
-          ? [params.additionalDecisionType]
-          : undefined,
-        violationField: params?.violationField,
-        status: params?.status,
-        postStatus: params?.postStatus,
-        postedUnit: params?.postedUnit,
+        documentCode: params?.documentCode,
+        documentNumber: params?.documentNumber,
+        content: params?.content,
+        agencyIssued: params?.agencyIssued,
       });
       const mappedResponse =
         response?.content?.map(item => {
-          const idNumbers: Array<string | null> = [];
-          const names: Array<string> = [];
-
-          item.decisionPenalizeViolatorInfos?.forEach(i => {
-            idNumbers.push(i.businessCodeOrIdentityNumber);
-            names.push(i.name);
-          });
           return {
             id: item.id,
-            decisionNumber: item.decisionNumber || '',
-            name: names.length ? names.join('\n') : '',
-            idNumber: idNumbers.length ? idNumbers.join('\n') : '',
-            status: item.statusDecisionStr || '',
+            documentCode: item.documentCode || '',
+            documentNumber: item.documentNumber || '',
+            content: item.content || '',
+            agencyIssued: item.agencyIssued || '',
           };
         }) || [];
       if (page) {
@@ -202,18 +164,18 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
       if (!response?.content?.length) {
         setEnd(true);
       }
-    } catch (e: any) {
+    } catch (e) {
       Alert.alert(t('notification', {ns: 'common'}), getMessageFromError(e));
     } finally {
       setLoading(false);
     }
-  }, [isSearch, page, params, search, sort, t]);
+  }, [page, params, search, sort, t]);
 
   useEffect(() => {
     if (isFocused) {
-      getDecisionPenalizes();
+      getDocumentList();
     }
-  }, [isFocused, getDecisionPenalizes]);
+  }, [isFocused, getDocumentList]);
 
   useEffect(() => {
     if (!isFocused) {
@@ -228,16 +190,14 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
         <TouchableOpacity
           style={styles.row}
           onPress={() =>
-            navigation.navigate(AppRouter.VIEW_PENALIZE_INFO, {
-              id: item.id,
-            })
+            navigation.navigate(AppRouter.VIEW_DOCUMENT, {id: item.id})
           }>
           <View style={styles.border} flex={1} px={2} py={2.5}>
             <SmallText
               numberOfLines={3}
               ellipsizeMode={'tail'}
               style={styles.columnText}>
-              {item.decisionNumber}
+              {item.documentCode}
             </SmallText>
           </View>
           <View style={styles.border} flex={2} px={2} py={2.5}>
@@ -245,27 +205,27 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
               numberOfLines={3}
               ellipsizeMode={'tail'}
               style={styles.columnText}>
-              {item.name}
+              {item.documentNumber}
             </SmallText>
           </View>
-          <View style={styles.border} flex={1} px={2} py={2.5}>
+          <View style={styles.border} flex={2} px={2} py={2.5}>
             <SmallText
               numberOfLines={3}
               ellipsizeMode={'tail'}
               style={styles.columnText}>
-              {item.idNumber}
+              {item.content}
             </SmallText>
           </View>
           <View
             style={[styles.border, {borderRightWidth: 0}]}
-            flex={1}
+            flex={2}
             px={2}
             py={2.5}>
             <SmallText
               numberOfLines={3}
               ellipsizeMode={'tail'}
               style={styles.columnText}>
-              {item.status}
+              {item.agencyIssued}
             </SmallText>
           </View>
         </TouchableOpacity>
@@ -275,39 +235,19 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
   );
 
   return (
-    <View flex={1} pt={2} style={{position: 'relative'}}>
+    <View style={styles.container} flex={1} pt={6}>
       <View flexRow>
-        <View style={styles.tableHead} flex={1} px={2} py={1.5}>
-          <Overline
-            style={styles.columnTitle}
-            numberOfLines={2}
-            ellipsizeMode={'tail'}>
-            {t('decisionNumber')}
-          </Overline>
+        <View style={styles.tableHead} flex={1} px={2} py={3.5}>
+          <Overline style={styles.columnTitle}>{t('documentCode')}</Overline>
         </View>
-        <View style={styles.tableHead} flex={2} px={2} py={1.5}>
-          <Overline
-            style={styles.columnTitle}
-            numberOfLines={2}
-            ellipsizeMode={'tail'}>
-            {t('enterprisePersonal')}
-          </Overline>
+        <View style={styles.tableHead} flex={2} px={2} py={3.5}>
+          <Overline style={styles.columnTitle}>{t('numberSymbol')}</Overline>
         </View>
-        <View style={styles.tableHead} flex={1} px={2} py={1.5}>
-          <Overline
-            style={styles.columnTitle}
-            numberOfLines={2}
-            ellipsizeMode={'tail'}>
-            {t('idPersonal')}
-          </Overline>
+        <View style={styles.tableHead} flex={2} px={2} py={3.5}>
+          <Overline style={styles.columnTitle}>{t('quoteContent')}</Overline>
         </View>
-        <View style={styles.tableHead} flex={1} px={2} py={1.5}>
-          <Overline
-            style={styles.columnTitle}
-            numberOfLines={2}
-            ellipsizeMode={'tail'}>
-            {t('status')}
-          </Overline>
+        <View style={styles.tableHead} flex={2} px={2} py={3.5}>
+          <Overline style={styles.columnTitle}>{t('agencyIssued')}</Overline>
         </View>
       </View>
       {loading || !isFocused ? (
@@ -335,7 +275,7 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
         renderContent={({onClose}) => (
           <View flex={1} pt={5} pb={8}>
             <H2 center style={{marginBottom: 24}}>
-              {t('sortPenalizeDecision')}
+              {t('sortDocumentList')}
             </H2>
             <TouchableOpacity
               style={[styles.field, {borderTopWidth: 1}]}
@@ -343,7 +283,7 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
                 setSort('A');
                 onClose();
               }}>
-              <Title1>{t('personalFromAToZ')}</Title1>
+              <Title1>{t('numberSymbolFromAToZ')}</Title1>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.field}
@@ -351,7 +291,7 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
                 setSort('Z');
                 onClose();
               }}>
-              <Title1>{t('personalFromZToA')}</Title1>
+              <Title1>{t('numberSymbolFromZToA')}</Title1>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.field}
@@ -359,7 +299,7 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
                 setSort('1');
                 onClose();
               }}>
-              <Title1>{t('decisionNumberFrom1To9')}</Title1>
+              <Title1>{t('documentCodeFrom1To9')}</Title1>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.field}
@@ -367,7 +307,7 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
                 setSort('9');
                 onClose();
               }}>
-              <Title1>{t('decisionNumberFrom9To1')}</Title1>
+              <Title1>{t('documentCodeFrom9To1')}</Title1>
             </TouchableOpacity>
           </View>
         )}>
@@ -388,4 +328,4 @@ const DecisionPenalize: FC<Props> = ({isSearch}) => {
   );
 };
 
-export default DecisionPenalize;
+export default DocumentList;

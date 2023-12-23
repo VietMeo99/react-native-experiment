@@ -6,7 +6,19 @@ interface ConstantsResponse {
 }
 
 export function getConstantsApi() {
-  return authorizedRequest.get<ConstantsResponse>('/api/v1/common/constants');
+  // return authorizedRequest.get<ConstantsResponse>('/api/v1/common/constants');
+  return {
+    PENALIZE_DECISION_STATUS: Array(10)
+      .fill({id: 1, value: 'temp'})
+      .map(i => {
+        return {...i, id: Math.random()};
+      }),
+    DECISION_PENALIZE_ATTACHMENT_TYPE: Array(10)
+      .fill({id: 1, value: 'temp'})
+      .map(i => {
+        return {...i, id: Math.random()};
+      }),
+  } as ConstantsResponse;
 }
 
 export interface ApplyTypeResponse {

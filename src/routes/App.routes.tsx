@@ -8,6 +8,9 @@ import {Colors} from 'themes/colors';
 import useAuthContext from 'hooks/useAuth';
 import Login from 'screens/auth/Login';
 import MainTabs from './Main.routes';
+import {useTranslation} from 'react-i18next';
+import useHeader from 'hooks/useHeader';
+import ViewPenalizeInfo from 'screens/penalize/ViewPenalizeInfo';
 
 const noop = () => <View />;
 
@@ -37,6 +40,8 @@ const HomeScreen: FC<Props> = ({token}) => {
 
 const AppRoutes = () => {
   const {token} = useAuthContext();
+  const {t} = useTranslation();
+  const {buttonRight} = useHeader();
 
   return (
     <Stack.Navigator
@@ -64,6 +69,14 @@ const AppRoutes = () => {
             component={MainTabs}
             options={{
               headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name={AppRouter.VIEW_PENALIZE_INFO}
+            component={ViewPenalizeInfo}
+            options={{
+              title: t('penalize:viewPenalizeVPHCInfo'),
+              headerRight: buttonRight,
             }}
           />
         </>

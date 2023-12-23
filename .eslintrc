@@ -8,7 +8,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "airbnb-typescript",
-    "prettier"
+    "prettier",
+    "plugin:react-hooks/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -73,7 +74,10 @@
     "react/display-name": "off",
     "camelcase": "off",
     "import/name": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "off"
+    // "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],

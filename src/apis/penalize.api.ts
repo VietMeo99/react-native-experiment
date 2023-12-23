@@ -131,7 +131,7 @@ export function getDecisionPenalizesApi(
       .map((item, index) => {
         return {...item, id: Math.random() + index};
       }),
-  };
+  } as GenericResponse<Array<DecisionPenalizeResponse>>;
 }
 
 interface DecisionPenalizeDetailResponse {
@@ -304,7 +304,8 @@ interface DecisionPenalizeDetailResponse {
 }
 
 export function getDecisionPenalizeByIdApi(id: string) {
-  return authorizedRequest.get<DecisionPenalizeDetailResponse>(
-    `/api/v1/system/decision-penalize/${id}`,
-  );
+  // return authorizedRequest.get<DecisionPenalizeDetailResponse>(
+  //   `/api/v1/system/decision-penalize/${id}`,
+  // );
+  return {} as DecisionPenalizeDetailResponse;
 }

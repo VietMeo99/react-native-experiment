@@ -90,8 +90,8 @@ const ViewPenalizeInfo = () => {
       setLoading(true);
       const detailResponse = await getDecisionPenalizeByIdApi(params.id);
       const constantResponse = await getConstantsApi();
-      let tempGroup = [];
-      let tempPersonal = [];
+      const tempGroup: any = [];
+      const tempPersonal: any = [];
       detailResponse?.decisionPenalizeViolatorInfos?.forEach(item => {
         if (item.type === 0) {
           tempGroup.push({
@@ -203,13 +203,13 @@ const ViewPenalizeInfo = () => {
             }))
             ?.filter(item => item.type === 21) || [],
       };
-      setDetail(mappedData);
+      setDetail(mappedData as any);
       if (mappedData.continueEnforceInfos.length) {
         setButtonRight(() => (
-          <InfoButton data={mappedData.continueEnforceInfos} />
+          <InfoButton data={mappedData.continueEnforceInfos as any} />
         ));
       }
-    } catch (e) {
+    } catch (e: any) {
       Alert.alert(t('notification', {ns: 'common'}), getMessageFromError(e));
     } finally {
       setLoading(false);
@@ -330,7 +330,7 @@ const ViewPenalizeInfo = () => {
             navigation.navigate(
               AppRouter.ADMINISTRATIVE_PENALIZE_VIOLATION_DETAIL,
               {
-                id: detail.id,
+                id: String(detail.id),
               },
             )
           }>

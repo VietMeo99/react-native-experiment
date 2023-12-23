@@ -5,12 +5,11 @@ import {useTranslation} from 'react-i18next';
 
 import Home from 'screens/home/Home';
 // TODO: remove
-// import Search from 'screens/search/Search';
+import Search from 'screens/search/Search';
 // import AccountRoutes from './Account.routes';
 import Penalize from 'screens/penalize/Penalize';
 // import Handle from 'screens/handle/Handle';
 // import SearchTitle from 'components/search/title/SearchTitle';
-import Search from 'screens/home/Home';
 import AccountRoutes from 'screens/home/Home';
 import Handle from 'screens/home/Home';
 import SearchTitle from 'components/search/title/SearchTitle';

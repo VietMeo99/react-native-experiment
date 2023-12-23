@@ -1,7 +1,9 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {I18nextProvider} from 'react-i18next';
+import * as Sentry from '@sentry/react-native';
 
 import i18n from 'translations/i18n';
 import RootRoutes from './routes/Root.routes';
@@ -11,6 +13,7 @@ import CachedParamsProvider from 'contexts/CachedParamsContext';
 import SearchProvider from 'contexts/SearchContext';
 
 import 'react-native-get-random-values';
+import HeaderProvider from 'contexts/HeaderContext';
 
 bootstrapApp();
 
@@ -31,18 +34,22 @@ function App(): React.JSX.Element {
         barStyle={'dark-content'}
       />
       <GestureHandlerRootView style={{flex: 1}}>
-        <I18nextProvider i18n={i18n}>
-          <CachedParamsProvider>
-            <AuthProvider>
-              <SearchProvider>
-                <RootRoutes />
-              </SearchProvider>
-            </AuthProvider>
-          </CachedParamsProvider>
-        </I18nextProvider>
+        <SafeAreaProvider>
+          <I18nextProvider i18n={i18n}>
+            <CachedParamsProvider>
+              <AuthProvider>
+                <SearchProvider>
+                  <HeaderProvider>
+                    <RootRoutes />
+                  </HeaderProvider>
+                </SearchProvider>
+              </AuthProvider>
+            </CachedParamsProvider>
+          </I18nextProvider>
+        </SafeAreaProvider>
       </GestureHandlerRootView>
     </>
   );
 }
 
-export default App;
+export default Sentry.wrap(App);
