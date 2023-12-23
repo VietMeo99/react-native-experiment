@@ -140,15 +140,15 @@ const SearchTitle = ({
             },
           ]}>
           <>
+            <View style={styles.searchIcon} center>
+              <IconMagnifyingGlass />
+            </View>
             <TextInput
               ref={ref => (inputRef.current = ref)}
               style={styles.searchInput}
               onChangeText={v => setSearch(v)}
               onEndEditing={collapseSearch}
             />
-            <View style={styles.searchIcon} center>
-              <IconMagnifyingGlass />
-            </View>
           </>
         </Animated.View>
       ) : (

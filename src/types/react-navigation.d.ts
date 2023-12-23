@@ -1,7 +1,7 @@
-import {AppRootParams} from 'models/routes';
+import {AppRootParams, AccountParams} from 'models/routes';
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends AppRootParams {}
+    interface RootParamList extends AppRootParams, AccountParams {}
   }
 }

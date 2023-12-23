@@ -4,15 +4,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTranslation} from 'react-i18next';
 
 import Home from 'screens/home/Home';
-// TODO: remove
 import Search from 'screens/search/Search';
-// import AccountRoutes from './Account.routes';
+import AccountRoutes from './Account.routes';
 import Penalize from 'screens/penalize/Penalize';
-// import Handle from 'screens/handle/Handle';
-// import SearchTitle from 'components/search/title/SearchTitle';
-import AccountRoutes from 'screens/home/Home';
-import Handle from 'screens/home/Home';
 import SearchTitle from 'components/search/title/SearchTitle';
+// TODO: remove
+// import Handle from 'screens/handle/Handle';
+import Handle from 'screens/home/Home';
 import Bell from 'components/notification/Bell';
 import {Caption2} from 'components/ui/text/Typography';
 import {TouchableOpacity, View} from 'components/ui';

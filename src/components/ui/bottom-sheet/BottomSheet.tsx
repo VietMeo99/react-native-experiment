@@ -40,7 +40,8 @@ interface IProps {
   }) => ReactNode;
 }
 
-const BottomSheet: FC<IProps> = ({
+const BottomSheet: FC<any> = ({
+  // const BottomSheet: FC<IProps> = ({
   // const BottomSheet: FC<IProps & Partial<BottomSheetModalProps>> = ({
   children,
   renderContent,

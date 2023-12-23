@@ -75,6 +75,7 @@
     "camelcase": "off",
     "import/name": "off",
     "no-underscore-dangle": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off"
     // "react-hooks/exhaustive-deps": "warn"

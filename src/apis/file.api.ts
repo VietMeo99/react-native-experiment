@@ -61,4 +61,5 @@ export function downloadFileApi(file: {id: string; name: string}) {
   // }).fetch('GET', CONFIG.BASE_URL + '/files/downloadFile/' + file.id, {
   //   Authorization: `Bearer ${tokenManager.token}`,
   // });
+  return {} as any;
 }
