@@ -7,10 +7,10 @@ import i18n from 'translations/i18n';
 import RootRoutes from './routes/Root.routes';
 import AuthProvider from 'contexts/AuthContext';
 import {bootstrapApp} from 'utils/bootstrapApp.util';
-
-import 'react-native-get-random-values';
 import CachedParamsProvider from 'contexts/CachedParamsContext';
 import SearchProvider from 'contexts/SearchContext';
+
+import 'react-native-get-random-values';
 
 bootstrapApp();
 

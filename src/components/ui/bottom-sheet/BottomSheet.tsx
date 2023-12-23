@@ -11,7 +11,7 @@ import {
   BottomSheetModal,
   BottomSheetBackdrop,
   // useBottomSheetDynamicSnapPoints,
-  BottomSheetModalProps,
+  // BottomSheetModalProps,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   indicator: {width: 100, backgroundColor: Colors.neutral3},
 });
 
-interface Props {
+interface IProps {
   children: (props: {
     opened: boolean;
     onOpen: () => void;
@@ -40,7 +40,8 @@ interface Props {
   }) => ReactNode;
 }
 
-const BottomSheet: FC<Props & Partial<BottomSheetModalProps>> = ({
+const BottomSheet: FC<IProps> = ({
+  // const BottomSheet: FC<IProps & Partial<BottomSheetModalProps>> = ({
   children,
   renderContent,
   ...other

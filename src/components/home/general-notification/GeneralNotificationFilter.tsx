@@ -6,7 +6,7 @@ import {View, TouchableOpacity} from 'components/ui';
 import {Caption1, H2, Title2} from 'components/ui/text/Typography';
 import BottomSheet from 'components/ui/bottom-sheet/BottomSheet';
 import UnitSelect from './UnitSelect';
-// import TimeSelect from './TimeSelect';
+import TimeSelect from './TimeSelect';
 import {Colors} from 'themes/colors';
 
 const styles = StyleSheet.create({
@@ -24,16 +24,16 @@ const styles = StyleSheet.create({
 
 interface Props {
   unit: {value: string; label: string};
-  // time: { month: number; year: number };
+  time: {month: number; year: number};
   setUnit: (payload: {value: string; label: string}) => void;
-  // setTime: (payload: { month: number; year: number }) => void;
+  setTime: (payload: {month: number; year: number}) => void;
 }
 
 const GeneralNotificationFilter: FC<Props> = ({
   unit,
-  // time,
+  time,
   setUnit,
-  // setTime,
+  setTime,
 }) => {
   const {t} = useTranslation('home');
 
@@ -64,8 +64,8 @@ const GeneralNotificationFilter: FC<Props> = ({
           </TouchableOpacity>
         )}
       </BottomSheet>
-      {/* <BottomSheet
-        renderContent={({ onClose }) => (
+      <BottomSheet
+        renderContent={({onClose}) => (
           <TimeSelect
             value={time}
             handleClose={onClose}
@@ -75,15 +75,17 @@ const GeneralNotificationFilter: FC<Props> = ({
             }}
           />
         )}>
-        {({ onOpen }) => (
+        {({onOpen}) => (
           <TouchableOpacity style={styles.field} onPress={onOpen}>
             <Title2 mr={2}>{t('time')}</Title2>
-            <Caption1 right style={{ flex: 1 }}>{`${t('month', { month: time.month })} ${t('year', {
+            <Caption1 right style={{flex: 1}}>{`${t('month', {
+              month: time.month,
+            })} ${t('year', {
               year: time.year,
             })}`}</Caption1>
           </TouchableOpacity>
         )}
-      </BottomSheet> */}
+      </BottomSheet>
     </View>
   );
 };

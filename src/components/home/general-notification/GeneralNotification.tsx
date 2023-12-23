@@ -2,8 +2,8 @@ import React, {useCallback, useState, useEffect} from 'react';
 import {StyleSheet, PixelRatio} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-// import startOfMonth from 'date-fns/startOfMonth';
-// import endOfMonth from 'date-fns/endOfMonth';
+import startOfMonth from 'date-fns/startOfMonth';
+import endOfMonth from 'date-fns/endOfMonth';
 
 import {View, Button} from 'components/ui';
 import {Body1, Caption1, Title1} from 'components/ui/text/Typography';
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   quantity: {color: Colors.primary},
 });
 
-// const today = new Date();
+const today = new Date();
 
 const GeneralNotification = () => {
   const {t} = useTranslation('home');
@@ -38,10 +38,10 @@ const GeneralNotification = () => {
     value: '',
     label: t('all'),
   });
-  // const [time, setTime] = useState<{ month: number; year: number }>({
-  //   month: today.getMonth() + 1,
-  //   year: today.getFullYear(),
-  // });
+  const [time, setTime] = useState<{month: number; year: number}>({
+    month: today.getMonth() + 1,
+    year: today.getFullYear(),
+  });
   const [quantity, setQuantity] = useState<{
     notIssued: number;
     issued: number;
@@ -68,13 +68,13 @@ const GeneralNotification = () => {
 
   const getOverallQuantityDecision = useCallback(async () => {
     try {
-      // const temp = today;
-      // temp.setMonth(time.month - 1);
-      // temp.setFullYear(time.year);
+      const temp = today;
+      temp.setMonth(time.month - 1);
+      temp.setFullYear(time.year);
       const response = await getOverallQuantityDecisionApi({
         unitId: unit.value,
-        // fromTime: String(temp ? startOfMonth(temp).getTime() : ''),
-        // toTime: String(temp ? endOfMonth(temp).getTime() : ''),
+        fromTime: String(temp ? startOfMonth(temp).getTime() : ''),
+        toTime: String(temp ? endOfMonth(temp).getTime() : ''),
       });
       setQuantity({
         notIssued: response?.qd_chua_ban_hanh || 0,
@@ -129,12 +129,12 @@ const GeneralNotification = () => {
     <View mb={6}>
       <View flexRow alignCenter>
         <Title1 style={{flex: 1}}>{t('generalNotification')}</Title1>
-        {/* <BottomSheet
+        <BottomSheet
           renderContent={() => (
             <GeneralNotificationFilter
-              // time={time}
+              time={time}
               unit={unit}
-              // setTime={setTime}
+              setTime={setTime}
               setUnit={setUnit}
             />
           )}>
@@ -148,7 +148,7 @@ const GeneralNotification = () => {
               <IconAdjustmentsHorizontal />
             </Button>
           )}
-        </BottomSheet> */}
+        </BottomSheet>
       </View>
       {renderItem({
         title: t('decisionNotIssuedQuantity'),

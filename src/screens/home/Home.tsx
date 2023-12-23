@@ -3,9 +3,9 @@ import {RefreshControl, ScrollView, StyleSheet} from 'react-native';
 
 import {Colors} from 'themes/colors';
 import GeneralNotification from 'components/home/general-notification/GeneralNotification';
-// import ViolationStatistic from 'components/home/violation-statistic/ViolationStatistic';
-// import FinesStatistic from 'components/home/fines-statistic/FinesStatistic';
-// import PrivateNotification from 'components/home/PrivateNotification';
+import ViolationStatistic from 'components/home/violation-statistic/ViolationStatistic';
+import FinesStatistic from 'components/home/fines-statistic/FinesStatistic';
+import PrivateNotification from 'components/home/PrivateNotification';
 import useCachedParams from 'hooks/useCachedParams';
 
 const styles = StyleSheet.create({
@@ -41,11 +41,9 @@ const Home = () => {
       }>
       <Fragment key={trigger}>
         <GeneralNotification />
-        {/* <ViolationStatistic />d */}
-        {/* <GeneralNotification />
         <ViolationStatistic />
         <FinesStatistic />
-        <PrivateNotification /> */}
+        <PrivateNotification />
       </Fragment>
     </ScrollView>
   );

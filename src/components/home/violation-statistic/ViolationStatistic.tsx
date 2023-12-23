@@ -6,7 +6,7 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
 
-import {View, Button, Text} from 'components/ui';
+import {View, Button} from 'components/ui';
 import {Caption1, Overline, Title1} from 'components/ui/text/Typography';
 import BottomSheet from 'components/ui/bottom-sheet/BottomSheet';
 import ViolationStatisticFilter from './ViolationStatisticFilter';
@@ -162,25 +162,16 @@ const ViolationStatistic = () => {
         <Title1 style={{flex: 1}}>{t('violationStatistic')}</Title1>
         <BottomSheet
           renderContent={() => (
-            // <ViolationStatisticFilter
-            //   unit={unit}
-            //   field={field}
-            //   time={time}
-            //   setUnit={setUnit}
-            //   setField={setField}
-            //   setTime={setTime}
-            // />
-            <View>
-              <Text>abc</Text>
-            </View>
+            <ViolationStatisticFilter
+              unit={unit}
+              field={field}
+              time={time}
+              setUnit={setUnit}
+              setField={setField}
+              setTime={setTime}
+            />
           )}>
-          {/* {temp} */}
-          {() => (
-            <View>
-              <Text>abc</Text>
-            </View>
-          )}
-          {/* {({onOpen}) => {
+          {({onOpen}) => {
             return (
               <Button
                 style={styles.smallButton}
@@ -191,9 +182,9 @@ const ViolationStatistic = () => {
                 <IconAdjustmentsHorizontal />
               </Button>
             );
-          }} */}
+          }}
         </BottomSheet>
-        {/* <BottomSheet
+        <BottomSheet
           renderContent={() => (
             <ViolationStatisticFilter
               unit={unit}
@@ -216,7 +207,7 @@ const ViolationStatistic = () => {
               </Button>
             );
           }}
-        </BottomSheet> */}
+        </BottomSheet>
       </View>
       {loading ? (
         <View my={2}>

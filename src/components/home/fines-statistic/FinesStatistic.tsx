@@ -14,6 +14,7 @@ import IconAdjustmentsHorizontal from 'assets/images/common/ic_adjustments_horiz
 import {Colors} from 'themes/colors';
 import {getOverallFinesApi} from 'apis/home.api';
 import {ScreenWidth} from 'themes/size';
+import {itemType} from 'react-native-gifted-charts/src/BarChart/types';
 
 const styles = StyleSheet.create({
   smallButton: {
@@ -170,7 +171,7 @@ const FinesStatistic = () => {
                     frontColor: '#3B82F6',
                   })
                   .concat({value: 0}),
-              [],
+              [] as Array<itemType>,
             )}
             width={ScreenWidth - 48}
             height={200}

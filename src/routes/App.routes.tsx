@@ -66,9 +66,6 @@ const AppRoutes = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen name={AppRouter.HOME}>
-            {props => <HomeScreen {...props} token={token} />}
-          </Stack.Screen>
         </>
       )}
       <Stack.Screen
