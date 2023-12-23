@@ -9,6 +9,8 @@ import AuthProvider from 'contexts/AuthContext';
 import {bootstrapApp} from 'utils/bootstrapApp.util';
 
 import 'react-native-get-random-values';
+import CachedParamsProvider from 'contexts/CachedParamsContext';
+import SearchProvider from 'contexts/SearchContext';
 
 bootstrapApp();
 
@@ -30,9 +32,13 @@ function App(): React.JSX.Element {
       />
       <GestureHandlerRootView style={{flex: 1}}>
         <I18nextProvider i18n={i18n}>
-          <AuthProvider>
-            <RootRoutes />
-          </AuthProvider>
+          <CachedParamsProvider>
+            <AuthProvider>
+              <SearchProvider>
+                <RootRoutes />
+              </SearchProvider>
+            </AuthProvider>
+          </CachedParamsProvider>
         </I18nextProvider>
       </GestureHandlerRootView>
     </>

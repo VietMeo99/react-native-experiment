@@ -3,10 +3,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {View, Text} from 'react-native';
 import {AppRouter} from 'constants/router';
 import {AppRootParams} from 'models/routes';
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {Colors} from 'themes/colors';
 import useAuthContext from 'hooks/useAuth';
 import Login from 'screens/auth/Login';
+import MainTabs from './Main.routes';
 
 const noop = () => <View />;
 
@@ -39,8 +40,7 @@ const AppRoutes = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={AppRouter.LOGIN}
-      // initialRouteName={AppRouter.MAIN}
+      initialRouteName={AppRouter.MAIN}
       screenOptions={{
         // headerShown: false,
         headerShadowVisible: true,
@@ -51,17 +51,25 @@ const AppRoutes = () => {
       }}>
       {!token ? (
         <>
-          <Stack.Screen name={AppRouter.HOME}>
-            {props => <HomeScreen {...props} token={token} />}
-          </Stack.Screen>
           <Stack.Screen name={AppRouter.LOGIN} component={Login} />
+          {/* <Stack.Screen name={AppRouter.HOME}>
+            {props => <HomeScreen {...props} token={token} />}
+          </Stack.Screen> */}
           <Stack.Screen name={AppRouter.REGISTER} component={Login} />
         </>
       ) : (
-        <Stack.Screen
-          name={AppRouter.HOME}
-          component={() => <HomeScreen token={token} />}
-        />
+        <>
+          <Stack.Screen
+            name={AppRouter.MAIN}
+            component={MainTabs}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name={AppRouter.HOME}>
+            {props => <HomeScreen {...props} token={token} />}
+          </Stack.Screen>
+        </>
       )}
       <Stack.Screen
         name={AppRouter.FORGOT_PASSWORD}

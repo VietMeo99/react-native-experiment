@@ -65,7 +65,7 @@ const Login = () => {
 
   const onSubmit = useCallback(
     async (values: LoginForm) => {
-      Keyboard.dismiss();
+      Keyboard.dismiss(); // ẩn bàm phím ảo
       setError('');
       setLoading(true);
       try {

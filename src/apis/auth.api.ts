@@ -13,10 +13,18 @@ interface AccessTokenInfo {
 }
 
 export function loginApi(body: {username: string; password: string}) {
-  return unauthorizedRequest.post<LoginResponse>(
-    '/public/v1/sso/jwt-login',
-    body,
-  );
+  // return unauthorizedRequest.post<LoginResponse>(
+  //   '/public/v1/sso/jwt-login',
+  //   body,
+  // );
+  return {
+    accessTokenInfo: {
+      accessToken: 'string',
+      idToken: 'string',
+      expiresIn: 10 ^ 9,
+      refreshToken: 'string',
+    },
+  };
 }
 
 export function verifyRecaptchaApi(token: string) {
@@ -26,9 +34,10 @@ export function verifyRecaptchaApi(token: string) {
 }
 
 export function loginWso2isApi(token: string) {
-  return unauthorizedRequest.post('/public/v1/sso/is-login', {
-    authorizationCode: token,
-  });
+  // return unauthorizedRequest.post('/public/v1/sso/is-login', {
+  //   authorizationCode: token,
+  // });
+  return true;
 }
 
 export function logoutApi() {
